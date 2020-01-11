@@ -1,8 +1,5 @@
 #!/usr/bin/env python3
 
-# The image file must be in the current directory, and must be named 'mypic.bmp'.
-# The image dimensions cannot exceed 40 wide by 30 tall.
-
 import sys
 from PIL import Image
 
@@ -47,17 +44,19 @@ def writePixel(pixel):
 content = ''
 pixelNumber = 0
 alpha = 100
-for y in range(height):
-    for x in range(width):
+for y in range(CONST['dbheight']):
+    for x in range(CONST['dbwidth']):
         if x == CONST['dbxswitch']:
             break
-        pixel = myimg.getpixel((x, y))
-        writePixel(pixel)
+        if y < height and x < width:
+            pixel = myimg.getpixel((x, y))
+            writePixel(pixel)
         pixelNumber += 1
-for y in range(height):
-    for x in range(CONST['dbxswitch'], width):
-        pixel = myimg.getpixel((x, y))
-        writePixel(pixel)
+for y in range(CONST['dbheight']):
+    for x in range(CONST['dbxswitch'], CONST['dbwidth']):
+        if y < height and x < width:
+            pixel = myimg.getpixel((x, y))
+            writePixel(pixel)
         pixelNumber += 1
 
 content += 'END'
